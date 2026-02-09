@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxCoins(vector<int>& nums) {
+        nums.push_back(1);
+        nums.insert(nums.begin(), 1);
+        int n = nums.size();
+
+        vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
+        function<int(int, int)> rec = [&](int x, int y) ->int {
+            if(x == y) {
+                int ans = nums[x];
+                if(x-1 >= 0) ans *= nums[x-1];
+                if(x+1 < n) ans *= nums[x+1];
+                return ans;
+            }
+            if(dp[x][y] != -1) return dp[x][y];
+            int ans = 0;
+            for(int i=x; i<=y; i++) {
+                int res = nums[i];
+                if(x-1 >= 0) res *= nums[x-1];
+                if(y+1 < n) res *= nums[y+1];
+                ans = max(ans, rec(x, i-1) + rec(i+1, y) + res);
+            }
+            return dp[x][y] = ans;
+        };
+
+        return rec(1, n-2);
+    }
+};
