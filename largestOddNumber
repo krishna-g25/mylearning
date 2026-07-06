@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string largestOddNumber(string num) {
+        int right  = num.length()-1;
+     int left =0;
+     int i ;
+     int digit =-1;
+     while(left<=right ){
+        if((num[right]-'0' )%2 != 0){
+            digit =right;
+            break;
+
+        }
+        right--;
+        
+     }
+     i = 0;
+     while(i<=digit && num[i] == '0') i++;
+     return num.substr(i , digit-i+1);
+        
+        
+    }
+};
