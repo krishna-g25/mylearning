@@ -1,0 +1,22 @@
+class Solution{	
+public:		
+    string largeOddNum(string& s){
+     int right  = s.length()-1;
+     int left =0;
+     int i ;
+     int digit =-1;
+     while(left<=right ){
+        if((s[right]-'0' )%2 != 0){
+            digit =right;
+            break;
+
+        }
+        right--;
+        
+     }
+     i = 0;
+     while(i<=digit && s[i] == '0') i++;
+     return s.substr(i , digit-i+1);
+      
+    }
+};
